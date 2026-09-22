@@ -1,0 +1,13 @@
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\AuthServiceApplication.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\config\DataInitializer.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\config\SecurityConfig.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\controller\AuthController.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\dto\AuthResponse.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\dto\LoginRequest.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\dto\RegisterRequest.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\dto\UserResponse.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\model\Role.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\model\User.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\repository\UserRepository.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\service\AuthService.java
+C:\Users\prakh\OneDrive\Desktop\snapscore\cravedash\auth-service\src\main\java\com\cravedash\auth\util\JwtUtil.java

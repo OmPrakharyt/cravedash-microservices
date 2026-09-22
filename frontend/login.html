@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraveDash — Sign In | Multi-Restaurant Orchestration Engine</title>
+    <meta name="description" content="Sign in to CraveDash Mobility Services - Secure JWT-authenticated access to the food ordering and delivery orchestration platform.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="login-bg">
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-page-wrap">
+
+        <!-- Left Panel: Brand + Features -->
+        <div class="login-brand-panel">
+            <div class="brand-logo-large">
+                <div class="logo-icon-lg">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <div>
+                    <div class="brand-name">Crave<span>Dash</span></div>
+                    <div class="brand-tagline">Mobility Orchestration Engine</div>
+                </div>
+            </div>
+
+            <div class="brand-features">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <div>
+                        <strong>Eureka Service Discovery</strong>
+                        <p>Netflix Eureka-based load-balanced microservice registry</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <strong>JWT Bearer Authentication</strong>
+                        <p>HMAC-SHA256 signed tokens with role-based claims</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-door-open"></i></div>
+                    <div>
+                        <strong>Spring Cloud API Gateway</strong>
+                        <p>Reactive gateway with global JWT filter &amp; routing</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div>
+                        <strong>Distributed Saga Workflow</strong>
+                        <p>Order → Restaurant → Payment inter-service orchestration</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-stack-chips">
+                <span class="tech-chip">Spring Boot 3.3</span>
+                <span class="tech-chip">Spring Cloud</span>
+                <span class="tech-chip">JWT / JJWT</span>
+                <span class="tech-chip">PostgreSQL</span>
+                <span class="tech-chip">OpenFeign</span>
+                <span class="tech-chip">JPA / Hibernate</span>
+            </div>
+
+            <!-- Demo Credentials Quick-Fill -->
+            <div class="demo-accounts">
+                <div class="demo-title"><i class="fa-solid fa-flask"></i> Quick Demo Logins (click to fill)</div>
+                <div class="demo-cards-grid">
+                    <button class="demo-card" onclick="fillDemo('om@cravedash.com','cravedash123','CONSUMER')">
+                        <i class="fa-solid fa-user"></i>
+                        <div>
+                            <strong>Om Prakhar</strong>
+                            <span>Consumer</span>
+                        </div>
+                    </button>
+                    <button class="demo-card" onclick="fillDemo('mradul@cravedash.com','cravedash123','RESTAURANT_OWNER')">
+                        <i class="fa-solid fa-store"></i>
+                        <div>
+                            <strong>Mradul Dixit</strong>
+                            <span>Restaurant Owner</span>
+                        </div>
+                    </button>
+                    <button class="demo-card" onclick="fillDemo('abhinav@cravedash.com','cravedash123','DELIVERY_PARTNER')">
+                        <i class="fa-solid fa-motorcycle"></i>
+                        <div>
+                            <strong>Abhinav Singh</strong>
+                            <span>Delivery Partner</span>
+                        </div>
+                    </button>
+                    <button class="demo-card" onclick="fillDemo('admin@cravedash.com','admin123','ADMIN')">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <strong>System Admin</strong>
+                            <span>Administrator</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Auth Form -->
+        <div class="login-form-panel">
+            <div class="auth-card">
+
+                <!-- Tab Switch: Login / Register -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">
+                        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                    </button>
+                    <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">
+                        <i class="fa-solid fa-user-plus"></i> Register
+                    </button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form-section">
+                    <div class="form-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in with your CraveDash credentials to access your role dashboard</p>
+                    </div>
+
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                            <input type="email" id="login-email" placeholder="you@cravedash.com" required autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="login-password" placeholder="Enter your password" required autocomplete="current-password">
+                                <button type="button" class="toggle-pw" onclick="togglePw('login-password', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="login-error" class="form-error" style="display:none;"></div>
+
+                        <button type="submit" class="btn-auth-submit" id="login-submit-btn">
+                            <span id="login-btn-text"><i class="fa-solid fa-right-to-bracket"></i> Sign In to CraveDash</span>
+                            <span id="login-btn-loading" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i> Authenticating...</span>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider"><span>or use a demo account</span></div>
+                    <div class="demo-quick-buttons">
+                        <button class="btn-demo-quick" onclick="fillDemo('om@cravedash.com','cravedash123','CONSUMER')">
+                            <i class="fa-solid fa-user"></i> Consumer
+                        </button>
+                        <button class="btn-demo-quick" onclick="fillDemo('mradul@cravedash.com','cravedash123','RESTAURANT_OWNER')">
+                            <i class="fa-solid fa-store"></i> Restaurant
+                        </button>
+                        <button class="btn-demo-quick" onclick="fillDemo('abhinav@cravedash.com','cravedash123','DELIVERY_PARTNER')">
+                            <i class="fa-solid fa-motorcycle"></i> Delivery
+                        </button>
+                        <button class="btn-demo-quick" onclick="fillDemo('admin@cravedash.com','admin123','ADMIN')">
+                            <i class="fa-solid fa-user-shield"></i> Admin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form-section" style="display:none;">
+                    <div class="form-header">
+                        <h2>Create Account</h2>
+                        <p>Join CraveDash as a Consumer, Restaurant Partner, or Delivery Agent</p>
+                    </div>
+
+                    <form id="register-form" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="reg-name"><i class="fa-solid fa-id-card"></i> Full Name</label>
+                            <input type="text" id="reg-name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                            <input type="email" id="reg-email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="reg-phone" placeholder="+91-9876543210">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password"><i class="fa-solid fa-lock"></i> Password</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="reg-password" placeholder="Min 6 characters" required>
+                                <button type="button" class="toggle-pw" onclick="togglePw('reg-password', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-role"><i class="fa-solid fa-user-tag"></i> Account Role</label>
+                            <select id="reg-role" class="form-select">
+                                <option value="CONSUMER">🛒 Consumer — Order food</option>
+                                <option value="RESTAURANT_OWNER">🍽️ Restaurant Owner — Manage menus</option>
+                                <option value="DELIVERY_PARTNER">🏍️ Delivery Partner — Manage deliveries</option>
+                            </select>
+                        </div>
+
+                        <div id="register-error" class="form-error" style="display:none;"></div>
+                        <div id="register-success" class="form-success" style="display:none;"></div>
+
+                        <button type="submit" class="btn-auth-submit" id="register-submit-btn">
+                            <span id="reg-btn-text"><i class="fa-solid fa-user-plus"></i> Create CraveDash Account</span>
+                            <span id="reg-btn-loading" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i> Registering...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- JWT Token Status (shown after login) -->
+                <div id="jwt-preview" class="jwt-token-preview" style="display:none;">
+                    <div class="jwt-preview-title"><i class="fa-solid fa-key"></i> JWT Token Issued</div>
+                    <div class="jwt-token-box" id="jwt-token-text"></div>
+                    <div class="jwt-claims-row" id="jwt-claims-row"></div>
+                    <div class="redirect-info"><i class="fa-solid fa-arrow-right"></i> Redirecting to your role dashboard...</div>
+                </div>
+
+                <!-- Backend Status Bar -->
+                <div class="backend-status-bar" id="backend-status-bar">
+                    <div class="status-dot" id="backend-dot"></div>
+                    <span id="backend-status-text">Checking backend connection...</span>
+                </div>
+
+            </div>
+
+            <!-- Course Info Footer -->
+            <div class="course-footer">
+                <div>PS034 • 24SDCS03A — SOA Programming &amp; Microservices</div>
+                <div>Team: Om Prakhar · Mradul Dixit · Abhinav Singh</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

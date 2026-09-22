@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraveDash | Multi-Restaurant Orchestration Engine</title>
+    <meta name="description" content="CraveDash – Real role-based food ordering & delivery platform built on Spring Cloud microservices.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dark-theme">
+
+<div class="ambient-glow glow-primary"></div>
+<div class="ambient-glow glow-accent"></div>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="glass-header">
+    <div class="header-container">
+        <div class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+            <div class="logo-text">
+                <span class="logo-title">Crave<span>Dash</span></span>
+                <span class="logo-subtitle">Orchestration Engine</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs" id="main-nav">
+            <!-- Tabs rendered by JS based on role -->
+        </nav>
+
+        <div class="header-right">
+            <div class="user-chip">
+                <div class="user-chip-avatar" id="hdr-avatar"><i class="fa-solid fa-user"></i></div>
+                <div class="user-chip-info">
+                    <span class="user-chip-name" id="hdr-name">Loading…</span>
+                    <span class="user-chip-role" id="hdr-role">---</span>
+                </div>
+            </div>
+            <button class="btn-logout" id="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main-content" id="main-content">
+
+    <!-- ── CONSUMER: MARKETPLACE ── -->
+    <section id="view-marketplace" class="view-panel">
+        <div class="hero-card">
+            <div class="hero-content">
+                <div class="badge-tag"><i class="fa-solid fa-shield-halved"></i> JWT Secured · Spring Cloud Gateway</div>
+                <h1>Order Gourmet Food — Fast &amp; Fresh</h1>
+                <p>Browse restaurant partners, build your cart, and track your order through the distributed saga workflow.</p>
+                <div class="search-bar-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="restaurant-search" placeholder="Search restaurants, cuisines, dishes…">
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-box"><span class="stat-val" id="stat-restaurants">4</span><span class="stat-label">Restaurants</span></div>
+                <div class="stat-box"><span class="stat-val" id="stat-orders">0</span><span class="stat-label">My Orders</span></div>
+                <div class="stat-box"><span class="stat-val">&lt;15ms</span><span class="stat-label">Gateway Hop</span></div>
+            </div>
+        </div>
+        <div class="category-filters">
+            <button class="category-chip active" data-cuisine="ALL"><i class="fa-solid fa-globe"></i> All</button>
+            <button class="category-chip" data-cuisine="American"><i class="fa-solid fa-burger"></i> American</button>
+            <button class="category-chip" data-cuisine="Indian"><i class="fa-solid fa-fire-burner"></i> Indian</button>
+            <button class="category-chip" data-cuisine="Japanese"><i class="fa-solid fa-bowl-rice"></i> Japanese</button>
+            <button class="category-chip" data-cuisine="Italian"><i class="fa-solid fa-pizza-slice"></i> Italian</button>
+        </div>
+        <div class="section-title-wrap">
+            <h2>Restaurant Partners</h2>
+            <span class="badge-info" id="restaurant-count-badge">0 partners</span>
+        </div>
+        <div class="restaurants-grid" id="restaurants-grid"></div>
+    </section>
+
+    <!-- ── CONSUMER: MY ORDERS ── -->
+    <section id="view-my-orders" class="view-panel">
+        <div class="section-title-wrap">
+            <div>
+                <h2><i class="fa-solid fa-receipt"></i> My Orders</h2>
+                <p>Track every order you've placed — live status updates from Restaurant and Delivery services</p>
+            </div>
+            <button class="btn-primary-sm" id="btn-refresh-my-orders"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        </div>
+        <div id="my-orders-list" class="orders-list-stack"></div>
+    </section>
+
+    <!-- ── RESTAURANT OWNER: MENU MANAGER ── -->
+    <section id="view-menu-manager" class="view-panel">
+        <div class="partner-panel-header">
+            <div>
+                <h2><i class="fa-solid fa-store"></i> Menu Inventory &amp; Availability</h2>
+                <p>Toggle items live — unavailable items are blocked at Order Service checkout in real time.</p>
+            </div>
+            <div class="partner-select-wrap">
+                <label for="partner-restaurant-select">Managing:</label>
+                <select id="partner-restaurant-select" class="form-control-select"></select>
+            </div>
+        </div>
+        <div class="partner-stats-bar">
+            <div class="partner-stat-pill"><i class="fa-solid fa-circle-check text-success"></i> <span id="partner-available-count">0</span> In Stock</div>
+            <div class="partner-stat-pill"><i class="fa-solid fa-circle-xmark text-danger"></i> <span id="partner-unavailable-count">0</span> Out of Stock</div>
+            <div class="partner-stat-pill"><i class="fa-solid fa-clock"></i> Avg Prep: 18 mins</div>
+        </div>
+        <div class="partner-items-table-card">
+            <table class="partner-table">
+                <thead><tr><th>Item</th><th>Category</th><th>Price</th><th>Prep</th><th>Status</th><th>Toggle</th></tr></thead>
+                <tbody id="partner-menu-tbody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── RESTAURANT OWNER: INCOMING ORDERS ── -->
+    <section id="view-incoming-orders" class="view-panel">
+        <div class="section-title-wrap">
+            <div>
+                <h2><i class="fa-solid fa-clipboard-list"></i> Incoming Orders</h2>
+                <p>Accept or reject orders from consumers — accepted orders are dispatched to the delivery fleet.</p>
+            </div>
+            <div style="display:flex;gap:0.8rem;align-items:center;">
+                <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+                <button class="btn-primary-sm" id="btn-refresh-incoming"><i class="fa-solid fa-rotate"></i> Refresh</button>
+            </div>
+        </div>
+        <div id="incoming-orders-grid" class="orders-action-grid"></div>
+    </section>
+
+    <!-- ── DELIVERY PARTNER: DASHBOARD ── -->
+    <section id="view-delivery" class="view-panel">
+        <div class="delivery-hero">
+            <div class="delivery-status-badge"><div class="delivery-status-dot active"></div> Online — Ready for Pickups</div>
+            <h2>Delivery Fleet Dashboard</h2>
+            <p>Your active assignments, pickup queue, and earnings summary</p>
+        </div>
+        <div class="delivery-stats-row">
+            <div class="delivery-stat-card"><div class="d-stat-icon"><i class="fa-solid fa-motorcycle"></i></div><div class="d-stat-val" id="d-total">0</div><div class="d-stat-label">Total Deliveries</div></div>
+            <div class="delivery-stat-card"><div class="d-stat-icon" style="color:#00E676"><i class="fa-solid fa-rupee-sign"></i></div><div class="d-stat-val" id="d-earnings">₹0</div><div class="d-stat-label">Today's Earnings</div></div>
+            <div class="delivery-stat-card"><div class="d-stat-icon" style="color:#FFB347"><i class="fa-solid fa-star"></i></div><div class="d-stat-val">4.9</div><div class="d-stat-label">Rating</div></div>
+            <div class="delivery-stat-card"><div class="d-stat-icon" style="color:#7C4DFF"><i class="fa-solid fa-list-check"></i></div><div class="d-stat-val" id="d-active">0</div><div class="d-stat-label">Active Pickups</div></div>
+        </div>
+
+        <div class="section-title-wrap" style="margin-top:1.5rem">
+            <h3><i class="fa-solid fa-map-location-dot"></i> Pickup Queue</h3>
+            <button class="btn-primary-sm" id="btn-refresh-delivery"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        </div>
+        <div id="delivery-queue-grid" class="orders-action-grid"></div>
+
+        <div class="section-title-wrap" style="margin-top:1.5rem">
+            <h3><i class="fa-solid fa-truck-fast"></i> Active Deliveries</h3>
+        </div>
+        <div id="delivery-active-grid" class="orders-action-grid"></div>
+    </section>
+
+    <!-- ── ADMIN: DASHBOARD ── -->
+    <section id="view-admin" class="view-panel">
+        <div class="admin-hero">
+            <h2><i class="fa-solid fa-chart-line"></i> System Administration</h2>
+            <p>Full-stack observability — users, orders, payments, microservice health</p>
+        </div>
+        <div class="admin-stats-grid">
+            <div class="admin-stat-card"><div class="admin-stat-icon orange"><i class="fa-solid fa-users"></i></div><div class="admin-stat-body"><div class="admin-stat-val" id="adm-users">4</div><div class="admin-stat-label">Users</div></div></div>
+            <div class="admin-stat-card"><div class="admin-stat-icon green"><i class="fa-solid fa-utensils"></i></div><div class="admin-stat-body"><div class="admin-stat-val" id="adm-restaurants">4</div><div class="admin-stat-label">Restaurants</div></div></div>
+            <div class="admin-stat-card"><div class="admin-stat-icon blue"><i class="fa-solid fa-bag-shopping"></i></div><div class="admin-stat-body"><div class="admin-stat-val" id="adm-orders">0</div><div class="admin-stat-label">Orders</div></div></div>
+            <div class="admin-stat-card"><div class="admin-stat-icon purple"><i class="fa-solid fa-credit-card"></i></div><div class="admin-stat-body"><div class="admin-stat-val" id="adm-revenue">₹0</div><div class="admin-stat-label">Revenue</div></div></div>
+        </div>
+
+        <div class="section-title-wrap" style="margin-top:2rem">
+            <h3><i class="fa-solid fa-heart-pulse"></i> Microservice Health</h3>
+            <button class="btn-primary-sm" id="btn-admin-health"><i class="fa-solid fa-rotate"></i> Health Check</button>
+        </div>
+        <div class="admin-services-grid" id="admin-services-grid"></div>
+
+        <div class="section-title-wrap" style="margin-top:2rem">
+            <h3><i class="fa-solid fa-table-list"></i> All Orders (System View)</h3>
+        </div>
+        <div id="admin-all-orders" class="orders-list-stack"></div>
+
+        <div class="section-title-wrap" style="margin-top:2rem">
+            <h3><i class="fa-solid fa-users"></i> Registered Users</h3>
+        </div>
+        <div class="admin-table-card">
+            <table class="admin-users-table">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Phone</th></tr></thead>
+                <tbody id="admin-users-tbody"><tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem">Loading…</td></tr></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── SHARED: MICROSERVICE MESH ── -->
+    <section id="view-topology" class="view-panel">
+        <div class="section-title-wrap">
+            <div>
+                <h2><i class="fa-solid fa-network-wired"></i> Microservices Mesh Topology</h2>
+                <p>Netflix Eureka :8761 · Spring Cloud Gateway :8080</p>
+            </div>
+            <button class="btn-primary-sm" id="btn-refresh-mesh"><i class="fa-solid fa-rotate"></i> Ping Probes</button>
+        </div>
+        <div class="topology-grid">
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-eureka"></div><div class="node-icon"><i class="fa-solid fa-satellite-dish"></i></div><h3>Eureka Server</h3><div class="node-meta"><span>:8761</span><span>EUREKA-SERVER</span></div><p>Service registry — heartbeat catalog for all microservice instances.</p><a href="http://localhost:8761" target="_blank" class="node-link">Open Dashboard <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-gateway"></div><div class="node-icon"><i class="fa-solid fa-door-open"></i></div><h3>API Gateway</h3><div class="node-meta"><span>:8080</span><span>API-GATEWAY</span></div><p>Reactive gateway with JWT filter, CORS, and load-balanced routing.</p><div class="badge-filter-tag">JwtAuthenticationFilter</div></div>
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-auth"></div><div class="node-icon"><i class="fa-solid fa-id-card"></i></div><h3>Auth Service</h3><div class="node-meta"><span>:8084</span><span>AUTH-SERVICE</span></div><p>BCrypt + HMAC-SHA256 JWT engine, role-based claims.</p><div class="badge-filter-tag">JJWT 0.11.5</div></div>
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-restaurant"></div><div class="node-icon"><i class="fa-solid fa-utensils"></i></div><h3>Restaurant Service</h3><div class="node-meta"><span>:8081</span><span>RESTAURANT-SERVICE</span></div><p>Menu catalog, availability management, item validation for orders.</p><div class="badge-filter-tag">Spring Data JPA</div></div>
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-order"></div><div class="node-icon"><i class="fa-solid fa-diagram-project"></i></div><h3>Order Service</h3><div class="node-meta"><span>:8082</span><span>ORDER-SERVICE</span></div><p>Saga orchestrator — Restaurant Feign → Payment Feign → state machine.</p><div class="badge-filter-tag">OpenFeign + LoadBalancer</div></div>
+            <div class="service-node-card"><div class="node-status-indicator" id="svc-payment"></div><div class="node-icon"><i class="fa-solid fa-credit-card"></i></div><h3>Payment Service</h3><div class="node-meta"><span>:8083</span><span>PAYMENT-SERVICE</span></div><p>Idempotent payment ledger — UPI / Card / Wallet authorization.</p><div class="badge-filter-tag">Idempotent Engine</div></div>
+        </div>
+
+        <div class="call-flow-card">
+            <h3><i class="fa-solid fa-arrows-split-up-and-left"></i> Distributed Transaction Workflow</h3>
+            <div class="flow-steps-horizontal">
+                <div class="flow-box"><span class="flow-num">1</span><div class="flow-title">Consumer</div><p>JWT → Gateway</p></div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box"><span class="flow-num">2</span><div class="flow-title">Order Service</div><p>PENDING state</p></div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box"><span class="flow-num">3</span><div class="flow-title">Restaurant Feign</div><p>Validate stock</p></div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box"><span class="flow-num">4</span><div class="flow-title">Payment Feign</div><p>Authorize txn</p></div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box highlight"><span class="flow-num">5</span><div class="flow-title">Confirmed</div><p>Fleet dispatch</p></div>
+            </div>
+        </div>
+
+        <div class="token-viewer-card">
+            <h3><i class="fa-solid fa-key"></i> Active JWT Bearer Token</h3>
+            <div class="token-display-box" id="jwt-token-display">---</div>
+            <div class="claims-grid" id="jwt-claims-display"></div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ══════════════ CART DRAWER ══════════════ -->
+<aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+        <h3><i class="fa-solid fa-bag-shopping"></i> Your Cart</h3>
+        <button class="btn-icon-close" id="cart-drawer-close">&times;</button>
+    </div>
+    <div class="cart-restaurant-tag" id="cart-restaurant-name">No items</div>
+    <div class="cart-items-container" id="cart-items-list"></div>
+    <div class="cart-drawer-footer">
+        <div class="delivery-address-group">
+            <label for="order-address-input"><i class="fa-solid fa-location-dot"></i> Delivery Address</label>
+            <input type="text" id="order-address-input" class="form-control-input" placeholder="Enter delivery address">
+        </div>
+        <div class="payment-method-group">
+            <label><i class="fa-solid fa-wallet"></i> Payment Method</label>
+            <div class="payment-pills">
+                <label class="pay-pill active"><input type="radio" name="paymethod" value="UPI" checked><span><i class="fa-solid fa-mobile-screen"></i> UPI</span></label>
+                <label class="pay-pill"><input type="radio" name="paymethod" value="CARD"><span><i class="fa-solid fa-credit-card"></i> Card</span></label>
+                <label class="pay-pill"><input type="radio" name="paymethod" value="WALLET"><span><i class="fa-solid fa-coins"></i> Wallet</span></label>
+            </div>
+        </div>
+        <div class="cart-totals">
+            <div class="totals-row"><span>Subtotal:</span><span id="cart-subtotal">₹0.00</span></div>
+            <div class="totals-row"><span>Delivery Fee:</span><span id="cart-delivery-fee">₹49</span></div>
+            <div class="totals-row grand-total"><span>Grand Total:</span><span id="cart-grand-total">₹0.00</span></div>
+        </div>
+        <button class="btn-checkout" id="btn-place-order">
+            <span>Place Order &amp; Pay</span><i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <div class="checkout-hint">Order → Restaurant → Payment microservice chain</div>
+    </div>
+</aside>
+
+<!-- ══════════════ MENU MODAL ══════════════ -->
+<div class="modal-backdrop" id="menu-modal">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <div><h3 id="modal-rest-name">Menu</h3><p id="modal-rest-cuisine" class="text-muted"></p></div>
+            <button class="btn-icon-close" id="menu-modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-menu-items"></div>
+    </div>
+</div>
+
+<!-- ══════════════ CART FAB (Consumer only) ══════════════ -->
+<button class="cart-fab" id="cart-fab" style="display:none">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span class="cart-badge" id="cart-counter">0</span>
+</button>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

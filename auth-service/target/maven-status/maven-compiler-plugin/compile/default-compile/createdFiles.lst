@@ -1,0 +1,13 @@
+com\cravedash\auth\controller\AuthController.class
+com\cravedash\auth\dto\LoginRequest.class
+com\cravedash\auth\dto\RegisterRequest.class
+com\cravedash\auth\config\SecurityConfig.class
+com\cravedash\auth\repository\UserRepository.class
+com\cravedash\auth\config\DataInitializer.class
+com\cravedash\auth\AuthServiceApplication.class
+com\cravedash\auth\dto\UserResponse.class
+com\cravedash\auth\service\AuthService.class
+com\cravedash\auth\model\User.class
+com\cravedash\auth\model\Role.class
+com\cravedash\auth\dto\AuthResponse.class
+com\cravedash\auth\util\JwtUtil.class

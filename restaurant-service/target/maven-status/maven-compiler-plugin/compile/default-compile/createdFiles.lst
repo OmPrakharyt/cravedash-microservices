@@ -1,0 +1,12 @@
+com\cravedash\restaurant\config\DataInitializer.class
+com\cravedash\restaurant\repository\RestaurantRepository.class
+com\cravedash\restaurant\dto\ValidateItemsRequest.class
+com\cravedash\restaurant\controller\RestaurantController.class
+com\cravedash\restaurant\repository\MenuItemRepository.class
+com\cravedash\restaurant\dto\ValidateItemsResponse$ValidatedItemInfo.class
+com\cravedash\restaurant\RestaurantServiceApplication.class
+com\cravedash\restaurant\dto\ValidateItemsResponse.class
+com\cravedash\restaurant\model\Restaurant.class
+com\cravedash\restaurant\service\RestaurantService.class
+com\cravedash\restaurant\model\MenuItem.class
+com\cravedash\restaurant\dto\ValidateItemsRequest$OrderItemDto.class

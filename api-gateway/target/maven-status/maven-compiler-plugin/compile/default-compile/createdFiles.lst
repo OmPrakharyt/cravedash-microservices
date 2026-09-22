@@ -1,0 +1,2 @@
+com\cravedash\gateway\ApiGatewayApplication.class
+com\cravedash\gateway\filter\JwtAuthenticationFilter.class
