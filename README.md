@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CraveDash Mobility Services: Multi-Restaurant Orchestration Engine (PS034)
 **Course Mapped**: 24SDCS03A - SOA PROGRAMMING AND MICROSERVICES  
 **Project ID**: PS034  
@@ -154,3 +155,7 @@ All rubric documentation is available in `docs/`:
 4. [Rubric 4: API Gateway Configuration & Load Balancing](docs/API_Gateway_Design.md)
 5. [Rubric 5: LinkedIn Article with DTI Concepts & Review](docs/LinkedIn_Article_DTI_Concepts.md)
 6. [Rubric 6: MOOC Progress Record](docs/MOOC_Progress_Report.md)
+=======
+# cravedash-microservices
+Multi-Restaurant Food Ordering &amp; Delivery Orchestration Engine built using Spring Boot, Spring Cloud, Eureka, API Gateway and JWT.
+>>>>>>> 183cc5f1ff24a2725d3282e8d8e8f9e75c54af8d
