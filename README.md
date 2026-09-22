@@ -154,7 +154,7 @@ All rubric documentation is available in `docs/`:
 3. [Rubric 3: JWT Authentication & Security](docs/Security_JWT_Specification.md)
 4. [Rubric 4: API Gateway Configuration & Load Balancing](docs/API_Gateway_Design.md)
 5. [Rubric 5: LinkedIn Article with DTI Concepts & Review](docs/LinkedIn_Article_DTI_Concepts.md)
-6. [Rubric 6: MOOC Progress Record](docs/MOOC_Progress_Report.md)
+
 =======
 # cravedash-microservices
 Multi-Restaurant Food Ordering &amp; Delivery Orchestration Engine built using Spring Boot, Spring Cloud, Eureka, API Gateway and JWT.
